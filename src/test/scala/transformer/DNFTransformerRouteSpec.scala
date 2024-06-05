@@ -17,6 +17,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
 
   val mockService = new DNFTransformerServiceF
   val router = new TransformerRouter(mockService)
+  val transformToDNFRoute = "/transformToDNF"
 
   "TransformerRouter" should {
 
@@ -24,7 +25,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val requestJson = DNFTransformerRequest(BooleanExpressionJson.jsonSimple)
       val requestEntity = Marshal(requestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> router.routes ~> check {
         status should ===(StatusCodes.OK)
@@ -36,7 +37,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val requestJson = DNFTransformerRequest(BooleanExpressionJson.jsonComplex)
       val requestEntity = Marshal(requestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> router.routes ~> check {
         status should ===(StatusCodes.OK)
@@ -48,7 +49,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonMalformed)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)
@@ -59,7 +60,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonMissingField)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)
@@ -70,7 +71,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonIncorrectFieldName)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)
@@ -81,7 +82,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonUnknownType)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)
@@ -92,7 +93,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonIncompleteNot)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)
@@ -103,7 +104,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.emptyJson)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 
-      val request = Post("/transformToDNF").withEntity(requestEntity)
+      val request = Post(transformToDNFRoute).withEntity(requestEntity)
 
       request ~> Route.seal(router.routes) ~> check {
         status should ===(StatusCodes.BadRequest)

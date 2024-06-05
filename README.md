@@ -7,14 +7,14 @@ and transforming boolean expressions.
 
 Accepted JSON format for boolean expressions is inspired by json-logic-scala format 
 (https://index.scala-lang.org/celadari/json-logic-scala). Moreover, the format has to
-follow grammar given below:
+follow the grammar given below:
 
-```
+```ebnf
 JsonExpr        ::= JsonBinaryExp | JsonUnaryExpr | JsonLiteral | JsonVariable 
 JsonBinaryExp   ::= { "type": BinaryOperator, "e1": JsonExpr, "e2": JsonExpr } 
 JsonUnaryExpr   ::= { "type": UnaryOperator, "expression": JsonExpr } |
                     { "type": JsonLiteral }
-JsonVariable    ::= { "type": "Variable", "name": String }
+JsonVariable    ::= { "type": "Variable", "symbol": String }
 BinaryOperator  ::= "And" | "Or"
 UnaryOperator   ::= "Not"
 JsonLiteral     ::= "True" | "False"

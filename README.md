@@ -65,9 +65,40 @@ a HTTP service with help of `akka-http` library. The service is able to transfor
 expressions to disjunctive normal form (DNF). The service itself is made of three key parts:
 - `transformer.routers.TransformerRouter` - responsible for handling HTTP requests
 - `transformer.services.TransformerService` - responsible for transforming boolean expressions
-- `transformer.client.TransformerClient` - an interactive client for the service
+- `transformer.server.Server` - server that runs the service
+- `transformer.client.TransformerClient` - an interactive client that connects to the server
 `TransformerLoader` is responsible for providing the main application with routes.
 
 ### Usage
+#### Running transformations:
+Open two terminal windows and type the following commands:
+```shell
+sbt "runMain server.Server"
+```
+```shell
+sbt "runMain client.Client"
+```
+
+The client will ask you to provide a boolean expression in JSON format. After providing the
+expression and pressing Enter twice, the client will send it to the server and print the 
+response. The response will be a boolean expression in DNF. If the expression is invalid,
+the server will respond with an error message.
+
+#### Running serialization and deserialization:
+The project provides `Serializer` and `Deserializer` objects that expose, respectively,
+```scala
+serialize(expression: BooleanExpression): String
+``` 
+and
+```scala 
+deserialize(json: String): Either[String, BooleanExpression]
+```
+methods. Use cases are shown in tests in `serializer.SerializerSpec`
+
 
 ### Testing
+The project is covered with unit tests. They test valid as well as invalid usage.
+In order to run tests, type:
+```shell
+sbt test
+```

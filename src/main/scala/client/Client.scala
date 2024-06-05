@@ -12,25 +12,25 @@ import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.io.StdIn
 import scala.util.{Failure, Success}
 
-object Client extends SprayJsonSupport with JsonSupport {
+object Client extends App with SprayJsonSupport with JsonSupport {
   implicit val system: ActorSystem = ActorSystem("algebraic-transformation-client")
   implicit val executionContext: ExecutionContextExecutor = system.dispatcher
-  def main(args: Array[String]): Unit = {
 
-    println("Enter a boolean expression in JSON format (end with a blank line):")
 
-    while (true) {
-      val expressionJson = readMultilineInput()
+  println("Enter a boolean expression in JSON format (end with a blank line):")
+  println("To exit, type 'exit' and press Enter twice")
 
-      if (expressionJson.trim.equalsIgnoreCase("exit")) {
-        println("Exiting...")
-        system.terminate()
-        return
-      }
+  while (true) {
+    val expressionJson = readMultilineInput()
 
-      processRequest(expressionJson)
-      println("Enter another boolean expression in JSON format or type 'exit' to quit:")
+    if (expressionJson.trim.equalsIgnoreCase("exit")) {
+      println("Exiting...")
+      system.terminate()
+      System.exit(0)
     }
+
+    processRequest(expressionJson)
+    println("Enter another boolean expression in JSON format or type 'exit' to quit:")
   }
 
   private def processRequest(expressionJson: String): Unit = {

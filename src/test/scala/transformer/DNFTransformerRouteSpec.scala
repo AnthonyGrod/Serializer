@@ -1,4 +1,4 @@
-package transformer.routers
+package transformer
 
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model.{MessageEntity, StatusCodes}
@@ -9,12 +9,12 @@ import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import spray.json._
+import transformer.routers.TransformerRouter
 import transformer.services.DNFTransformerService.{DNFTransformerRequest, JsonSupport}
 import transformer.services.DNFTransformerServiceF
 
 class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRouteTest with ScalaFutures with JsonSupport {
 
-  // Mock service for testing
   val mockService = new DNFTransformerServiceF
   val router = new TransformerRouter(mockService)
 
@@ -88,7 +88,7 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
       }
     }
 
-    "return BadRequest for malformed DNFTransformerRequest (incomplete Not expression)" in {
+    "return BadRequest for malformed DNFTransformerRequest (incomplete expression)" in {
       val invalidRequestJson = DNFTransformerRequest(BooleanExpressionJson.jsonIncompleteNot)
       val requestEntity = Marshal(invalidRequestJson).to[MessageEntity].futureValue
 

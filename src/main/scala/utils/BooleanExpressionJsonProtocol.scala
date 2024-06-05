@@ -1,14 +1,9 @@
 package utils
 
-import domain.{And, BooleanExpression, False, Not, Or, True, Variable}
-import spray.json._
+import domain._
+import spray.json.{DefaultJsonProtocol, JsObject, JsString, JsValue, RootJsonFormat, deserializationError}
 
 object BooleanExpressionJsonProtocol extends DefaultJsonProtocol {
-  implicit val variableFormat: RootJsonFormat[Variable] = jsonFormat1(Variable.apply)
-  implicit val notFormat: RootJsonFormat[Not] = jsonFormat1(Not.apply)
-  implicit val orFormat: RootJsonFormat[Or] = jsonFormat2(Or.apply)
-  implicit val andFormat: RootJsonFormat[And] = jsonFormat2(And.apply)
-
   implicit object BooleanExpressionFormat extends RootJsonFormat[BooleanExpression] {
     def write(expr: BooleanExpression): JsValue = expr match {
       case True => JsObject("type" -> JsString("True"))

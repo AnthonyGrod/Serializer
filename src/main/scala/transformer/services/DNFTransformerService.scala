@@ -16,8 +16,15 @@ class DNFTransformerServiceF extends DNFTransformerService {
   implicit val ec: ExecutionContext = ExecutionContext.global
 
   override def transformToDNF(request: DNFTransformerRequest): Future[DNFTransformerResponse] = {
-    Future.successful(DNFTransformerResponse.Up(
-      BooleanExpressionFormat.write(convertToDNF(request.json.parseJson.convertTo[BooleanExpression])).toString))
+    Future {
+      try {
+        val expr = request.json.parseJson.convertTo[BooleanExpression]
+        val dnfExpr = convertToDNF(expr)
+        DNFTransformerResponse.Up(dnfExpr.toJson.toString())
+      } catch {
+        case _: Exception => DNFTransformerResponse.Down
+      }
+    }
   }
 
   private def convertToDNF(expr: BooleanExpression): BooleanExpression = {
@@ -37,19 +44,7 @@ class DNFTransformerServiceF extends DNFTransformerService {
 }
 
   object DNFTransformerService {
-    final case class DNFTransformerRequest(json: String) {
-      require(json.nonEmpty, "JSON expression cannot be empty")
-      require(isValidJsonBooleanExpr(json), "Invalid JSON expression for boolean expression format")
-
-      private def isValidJsonBooleanExpr(json: String): Boolean = {
-        try {
-          json.parseJson.convertTo[BooleanExpression]
-          true
-        } catch {
-          case _: Exception => false
-        }
-      }
-    }
+    final case class DNFTransformerRequest(json: String)
 
     sealed trait DNFTransformerResponse
     object DNFTransformerResponse {

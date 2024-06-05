@@ -12,6 +12,7 @@ val catsCoreVersion               = "2.9.0"
 val typesafeSslConfigCoreV        = "0.6.1"
 val kebsVersion                   = "1.8.1"
 val circeVersion                  = "0.14.1"
+val scalaTestVersion              = "3.2.9"
 
 lazy val root = (project in file(".")).
  settings(
@@ -25,9 +26,12 @@ lazy val root = (project in file(".")).
      "com.typesafe"                  %% "ssl-config-core"            % typesafeSslConfigCoreV,
      "com.typesafe.akka"             %% "akka-actor"                 % akkaVersion,
      "com.typesafe.akka"             %% "akka-stream"                % akkaVersion,
+     "com.typesafe.akka"             %% "akka-testkit"               % akkaVersion % Test,
      "com.typesafe.akka"             %% "akka-http"                  % akkaHttpVersion,
      "com.typesafe.akka"             %% "akka-http-core"             % akkaHttpVersion,
      "com.typesafe.akka"             %% "akka-http-spray-json"       % akkaHttpVersion,
+     "com.typesafe.akka"             %% "akka-http-testkit"          % akkaHttpVersion % Test,
+     "org.scalatest"                 %% "scalatest"                  % scalaTestVersion % Test,
      "org.typelevel"                 %% "cats-core"                  % catsCoreVersion,
      "pl.iterators"                  %% "kebs-akka-http"             % kebsVersion,
      "io.circe"                      %% "circe-core"                 % circeVersion,
@@ -36,3 +40,6 @@ lazy val root = (project in file(".")).
    )
  )
 
+Test / fork := true
+Test / parallelExecution := false
+Test / classLoaderLayeringStrategy := ClassLoaderLayeringStrategy.Flat

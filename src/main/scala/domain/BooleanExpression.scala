@@ -1,4 +1,4 @@
-package transformer.domain
+package domain
 
 sealed trait BooleanExpression
 case object True extends BooleanExpression

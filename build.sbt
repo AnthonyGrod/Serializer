@@ -10,6 +10,8 @@ val akkaHttpVersion               = "10.2.10"
 val akkaVersion                   = "2.6.20"
 val catsCoreVersion               = "2.9.0"
 val typesafeSslConfigCoreV        = "0.6.1"
+val kebsVersion                   = "1.8.1"
+val circeVersion                  = "0.14.1"
 
 lazy val root = (project in file(".")).
  settings(
@@ -25,7 +27,12 @@ lazy val root = (project in file(".")).
      "com.typesafe.akka"             %% "akka-stream"                % akkaVersion,
      "com.typesafe.akka"             %% "akka-http"                  % akkaHttpVersion,
      "com.typesafe.akka"             %% "akka-http-core"             % akkaHttpVersion,
+     "com.typesafe.akka"             %% "akka-http-spray-json"       % akkaHttpVersion,
      "org.typelevel"                 %% "cats-core"                  % catsCoreVersion,
+     "pl.iterators"                  %% "kebs-akka-http"             % kebsVersion,
+     "io.circe"                      %% "circe-core"                 % circeVersion,
+     "io.circe"                      %% "circe-generic"              % circeVersion,
+     "io.circe"                      %% "circe-parser"               % circeVersion,
    )
  )
 

@@ -12,12 +12,11 @@ object Deserializer {
   def apply(): Deserializer = new DeserializerF
 
   private final class DeserializerF extends Deserializer {
-    override def deserialize(json: String): Either[String, BooleanExpression] = {
-      try {
+    override def deserialize(json: String): Either[String, BooleanExpression] =
+      try
         Right(json.parseJson.convertTo[BooleanExpression])
-      } catch {
+      catch {
         case _: Exception => Left("Invalid JSON expression for boolean expression format")
       }
-    }
   }
 }

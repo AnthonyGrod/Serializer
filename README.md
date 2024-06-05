@@ -61,13 +61,12 @@ itself are performed by `serializer.Serializer` and `serializer.Deserializer`.
 
 ### Transformation
 Second part of the project is a DNF transformer for boolean expressions. It is implemented as
-a HTTP service with help of `akka-http` library. The service is able to transform boolean
+an HTTP service with help of the `akka-http` library. The service is able to transform boolean
 expressions to disjunctive normal form (DNF). The service itself is made of three key parts:
 - `transformer.routers.TransformerRouter` - responsible for handling HTTP requests
 - `transformer.services.TransformerService` - responsible for transforming boolean expressions
 - `transformer.server.Server` - server that runs the service
 - `transformer.client.TransformerClient` - an interactive client that connects to the server
-`TransformerLoader` is responsible for providing the main application with routes.
 
 ### Usage
 #### Running transformations:
@@ -79,12 +78,12 @@ sbt "runMain server.Server"
 sbt "runMain client.Client"
 ```
 
-The client will ask you to provide a boolean expression in JSON format. After providing the
+The client will ask you to provide a boolean expression in our JSON format. After providing the
 expression and pressing Enter twice, the client will send it to the server and print the 
 response. The response will be a boolean expression in DNF. If the expression is invalid,
 the server will respond with an error message.
 
-#### Running serialization and deserialization:
+#### Using serialization and deserialization:
 The project provides `Serializer` and `Deserializer` objects that expose, respectively,
 ```scala
 serialize(expression: BooleanExpression): String

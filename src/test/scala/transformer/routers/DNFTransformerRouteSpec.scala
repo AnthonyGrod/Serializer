@@ -24,7 +24,20 @@ class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRo
   val router = new TransformerRouter(mockService)
 
   "TransformerRouter" should {
-    "return transformed response for valid DNFTransformerRequest" in {
+
+    "return transformed response for valid simple DNFTransformerRequest" in {
+      val requestJson = DNFTransformerRequest(BooleanExpressionJson.jsonSimple)
+      val requestEntity = Marshal(requestJson).to[MessageEntity].futureValue
+
+      val request = Post("/transformToDNF").withEntity(requestEntity)
+
+      request ~> router.routes ~> check {
+        status should ===(StatusCodes.OK)
+        responseAs[String].parseJson shouldEqual BooleanExpressionJson.jsonSimpleResponseDNF.parseJson
+      }
+    }
+
+    "return transformed response for valid complex DNFTransformerRequest" in {
       val requestJson = DNFTransformerRequest(BooleanExpressionJson.jsonComplex)
       val requestEntity = Marshal(requestJson).to[MessageEntity].futureValue
 

@@ -1,7 +1,8 @@
 package domain
 
 object BooleanExpressionJson {
-  val jsonSimple = """{
+  val jsonSimple =
+    """{
             "type": "And",
             "e1": {
               "type": "False"
@@ -18,7 +19,8 @@ object BooleanExpressionJson {
             }
           }"""
 
-  val jsonSimpleResponseDNF = """{
+  val jsonSimpleResponseDNF =
+    """{
               "type": "Or",
               "e1": {
                 "type": "And",
@@ -42,7 +44,8 @@ object BooleanExpressionJson {
             }"""
 
 
-  val jsonComplex = """{
+  val jsonComplex =
+    """{
           "type": "Or",
           "e1": {
             "type": "And",
@@ -56,7 +59,8 @@ object BooleanExpressionJson {
           }
         }"""
 
-  val jsonComplexResponseDNF = """
+  val jsonComplexResponseDNF =
+    """
           {
             "type": "Or",
             "e1": {
@@ -72,25 +76,30 @@ object BooleanExpressionJson {
           }
           """
 
-  val jsonMissingField = """{
+  val jsonMissingField =
+    """{
     "type": "Variable"
   }"""
 
-  val jsonIncorrectFieldName = """{
+  val jsonIncorrectFieldName =
+    """{
     "type": "Variable",
     "symbl": "colA"
   }"""
 
-  val jsonUnknownType = """{
+  val jsonUnknownType =
+    """{
     "type": "UnknownType"
   }"""
 
-  val jsonIncompleteNot = """{
+  val jsonIncompleteNot =
+    """{
     "type": "Not"
   }"""
 
 
-  val jsonMalformed = """{
+  val jsonMalformed =
+    """{
     "type": "Or",
     "e1": {"type": "Variable", "symbol": "colA",
     "e2": {"type": "Variable", "symbol": "colB"}

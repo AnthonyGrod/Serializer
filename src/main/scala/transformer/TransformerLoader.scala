@@ -6,7 +6,6 @@ import transformer.services.DNFTransformerServiceF
 
 trait TransformerLoader {
   private lazy val transformerRouter = new TransformerRouter(new DNFTransformerServiceF)
-  def routes(): Route = {
+  def routes(): Route =
     transformerRouter.routes
-  }
 }

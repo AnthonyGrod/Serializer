@@ -8,10 +8,7 @@ import transformer.services.DNFTransformerService.{DNFTransformerRequest, DNFTra
 
 import scala.concurrent.ExecutionContext
 
-class TransformerRouter(transformerService: DNFTransformerService)
-  extends Directives
-  with KebsUnmarshallers
-  with JsonSupport {
+class TransformerRouter(transformerService: DNFTransformerService) extends Directives with KebsUnmarshallers with JsonSupport {
   def routes: Route = {
     implicit val ec: ExecutionContext = ExecutionContext.global
     pathPrefix("transformToDNF") {

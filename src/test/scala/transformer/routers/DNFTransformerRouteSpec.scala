@@ -1,21 +1,16 @@
 package transformer.routers
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import akka.http.scaladsl.marshalling.Marshal
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, MessageEntity, StatusCodes}
+import akka.http.scaladsl.model.{MessageEntity, StatusCodes}
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.testkit.ScalatestRouteTest
+import domain.BooleanExpressionJson
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import spray.json._
-import transformer.routers.TransformerRouter
+import transformer.services.DNFTransformerService.{DNFTransformerRequest, JsonSupport}
 import transformer.services.DNFTransformerServiceF
-import transformer.services.DNFTransformerService.{DNFTransformerRequest, DNFTransformerResponse, JsonSupport}
-import domain.{BooleanExpression, BooleanExpressionJson}
-
-import scala.concurrent.Future
-import scala.util.Try
 
 class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRouteTest with ScalaFutures with JsonSupport {
 

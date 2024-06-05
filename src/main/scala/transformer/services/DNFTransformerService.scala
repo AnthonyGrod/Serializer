@@ -20,7 +20,7 @@ class DNFTransformerServiceF extends DNFTransformerService {
       try {
         val expr    = request.json.parseJson.convertTo[BooleanExpression]
         val dnfExpr = convertToDNF(expr)
-        DNFTransformerResponse.Up(dnfExpr.toJson.toString())
+        DNFTransformerResponse.Up(dnfExpr.toJson.prettyPrint)
       } catch {
         case _: Exception => DNFTransformerResponse.Down
       }

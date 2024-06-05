@@ -20,6 +20,15 @@ UnaryOperator   ::= "Not"
 JsonLiteral     ::= "True" | "False"
 ```
 
+Order of the operator inside binary expressions does not matter - for example
+```json
+{ "type": "And", "e1": { "type": "False" }, "e2": { "type": "True" } }
+``` 
+is equivalent to
+```json
+{ "e1": { "type": "False" }, "e2": { "type": "True" }, "type": "And" }
+```
+
 Example valid JSON boolean expression:
 ```json
 {
@@ -80,8 +89,9 @@ sbt "runMain client.Client"
 
 The client will ask you to provide a boolean expression in our JSON format. After providing the
 expression and pressing Enter twice, the client will send it to the server and print the 
-response. The response will be a boolean expression in DNF. If the expression is invalid,
-the server will respond with an error message.
+response in a user-friendly manner (you can check it out with te boolean expression in JSON 
+format from the beginning of the `README`). The response will be a boolean expression in DNF. 
+If the expression is invalid, the server will respond with an error message.
 
 #### Using serialization and deserialization:
 The project provides `Serializer` and `Deserializer` objects that expose, respectively,

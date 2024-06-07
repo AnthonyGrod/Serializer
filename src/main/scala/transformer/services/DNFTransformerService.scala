@@ -43,14 +43,14 @@ class DNFTransformerServiceF extends DNFTransformerService {
 }
 
 object DNFTransformerService {
-  sealed trait DNFTransformerResponse
 
-  trait JsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
+  trait TransformerJsonSupport extends SprayJsonSupport with DefaultJsonProtocol {
     implicit val dnfTransformerRequestFormat: RootJsonFormat[DNFTransformerRequest] = jsonFormat1(DNFTransformerRequest)
   }
 
   final case class DNFTransformerRequest(json: String)
 
+  sealed trait DNFTransformerResponse
   object DNFTransformerResponse {
     case class Up(response: String) extends DNFTransformerResponse
 

@@ -39,8 +39,7 @@ Example valid JSON boolean expression:
   "e2": {
     "type": "Or",
     "e1": {
-      "type": "Variable",
-      "symbol": "x"
+      "type": "True"
     },
     "e2": {
       "type": "True"

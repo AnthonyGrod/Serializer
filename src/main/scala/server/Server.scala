@@ -19,9 +19,9 @@ object Server extends App with TransformerLoader {
   StdIn.readLine()
   server
     .flatMap(_.unbind())
-    .onComplete(_ => {
+    .onComplete { _ =>
       println("Server stopped.")
       system.terminate()
-    })
+    }
   Await.result(system.whenTerminated, Duration.Inf)
 }

@@ -10,13 +10,18 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import spray.json._
 import transformer.routers.TransformerRouter
-import transformer.services.DNFTransformerService.{DNFTransformerRequest, JsonSupport}
-import transformer.services.DNFTransformerServiceF
+import transformer.services.DNFTransformerService.{DNFTransformerRequest, TransformerJsonSupport}
+import transformer.services.{DNFTransformerServiceF, EvaluatorServiceF}
 
-class DNFTransformerRouteSpec extends AnyWordSpec with Matchers with ScalatestRouteTest with ScalaFutures with JsonSupport {
+class DNFTransformerRouteSpec extends AnyWordSpec
+    with Matchers
+    with ScalatestRouteTest
+    with ScalaFutures
+    with TransformerJsonSupport {
 
-  val mockService = new DNFTransformerServiceF
-  val router = new TransformerRouter(mockService)
+  val transformerService = new DNFTransformerServiceF
+  val evaluatorService = new EvaluatorServiceF
+  val router = new TransformerRouter(transformerService, evaluatorService)
   val transformToDNFRoute = "/transformToDNF"
 
   "TransformerRouter" should {
